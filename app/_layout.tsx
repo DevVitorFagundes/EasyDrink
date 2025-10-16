@@ -8,10 +8,15 @@ export default function RootLayout() {
     <>
       <StatusBar style="light" />
       <AuthProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="drink/[id]" options={{ title: "Detalhes do Drink" }} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="login" />
+          <Stack.Screen name="drink/[id]" options={{ 
+            headerShown: true,
+            title: "Detalhes do Drink",
+            headerStyle: { backgroundColor: '#8B5CF6' },
+            headerTintColor: '#fff',
+          }} />
         </Stack>
       </AuthProvider>
     </>
