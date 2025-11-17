@@ -1,16 +1,16 @@
 export const colors = {
-  primary: '#8B5CF6', // Purple
+  primary: '#3f3f3f57', // Purple
   primaryDark: '#7C3AED',
   primaryLight: '#A78BFA',
   secondary: '#10B981', // Green
   background: '#0F172A', // Dark slate
   card: '#1E293B',
   border: '#334155',
-  text: '#F8FAFC',
-  textSecondary: '#94A3B8',
-  white: '#FFFFFF',
+  text: '#fdfdfdff',
+  textSecondary: '#ffffffff',
+  white: '#25233db6',
   error: '#EF4444',
-  warning: '#F59E0B',
+  warning: '#ffffffff',
   success: '#10B981',
 };
 

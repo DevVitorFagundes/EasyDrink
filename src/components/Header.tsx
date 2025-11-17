@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fontSize.xl,
     fontWeight: fontWeight.bold,
-    color: colors.white,
+    color: colors.text,
   },
   subtitle: {
     fontSize: fontSize.sm,
-    color: colors.white,
+    color: colors.text,
     opacity: 0.9,
     marginTop: 2,
   },
