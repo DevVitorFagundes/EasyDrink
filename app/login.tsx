@@ -1,5 +1,5 @@
-import { router } from "expo-router";
-import React, { useState } from "react";
+import {router} from "expo-router";
+import React, {useState} from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "../src/contexts/AuthContext";
+import {useAuth} from "../src/contexts/AuthContext";
 import {
   borderRadius,
   colors,
