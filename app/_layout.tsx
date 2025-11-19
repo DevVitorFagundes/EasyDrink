@@ -1,8 +1,8 @@
-import {Stack} from "expo-router";
-import {StatusBar} from "expo-status-bar";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {AuthProvider} from "../src/contexts/AuthContext";
-import {colors} from "../src/styles/theme";
+import { AuthProvider } from "../src/contexts/AuthContext";
+import { colors } from "../src/styles/theme";
 
 export default function RootLayout() {
   return (

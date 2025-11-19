@@ -1,5 +1,6 @@
+import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -25,10 +26,6 @@ export default function ProfileScreen() {
   const [favoritesCount, setFavoritesCount] = useState(0);
   const router = useRouter();
 
-  useEffect(() => {
-    loadFavoritesCount();
-  }, []);
-
   const loadFavoritesCount = async () => {
     try {
       const favorites = await FavoritesService.getFavorites();
@@ -37,6 +34,12 @@ export default function ProfileScreen() {
       console.error("Error loading favorites count:", error);
     }
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      loadFavoritesCount();
+    }, [])
+  );
 
   const handleLogout = () => {
     Alert.alert("Sair da Conta", "Tem certeza que deseja sair?", [
@@ -62,21 +65,12 @@ export default function ProfileScreen() {
         contentContainerStyle={{paddingBottom: 40}}
       >
         <View style={styles.userCard}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>👤</Text>
-          </View>
 
           <Text style={styles.userName}>{user?.name}</Text>
           <Text style={styles.userEmail}>{user?.email}</Text>
         </View>
 
         <View style={styles.statsRow}>
-          <View style={styles.statCard}>
-            <Text style={styles.statIcon}>🍸</Text>
-            <Text style={styles.statValue}>∞</Text>
-            <Text style={styles.statLabel}>Receitas Disponíveis</Text>
-          </View>
-
           <View style={styles.statCard}>
             <Text style={styles.statIcon}>❤️</Text>
             <Text style={styles.statValue}>{favoritesCount}</Text>
