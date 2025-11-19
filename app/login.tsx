@@ -116,7 +116,7 @@ export default function LoginScreen() {
           <View style={styles.content}>
             <View style={styles.header}>
               <View style={styles.iconContainer}>
-                <Text style={styles.iconText}>��</Text>
+                <Text style={styles.iconText}>🍸</Text>
               </View>
               <Text style={styles.title}>Easy Drink</Text>
               <Text style={styles.subtitle}>
