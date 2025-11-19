@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import {
   FlatList,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -71,6 +72,38 @@ export default function FavoritesScreen() {
     return <Loading message="Carregando favoritos..." />;
   }
 
+  // Layout para web
+  if (Platform.OS === 'web' && drinks.length > 0) {
+    return (
+      <View style={styles.container}>
+        <Header
+          title="Meus Favoritos"
+          subtitle={`${drinks.length} drinks salvos`}
+        />
+        <View style={styles.webContainer}>
+          <View 
+            style={{
+              display: 'grid' as any,
+              gridTemplateColumns: 'repeat(2, 1fr)' as any,
+              gap: 16 as any,
+              padding: 16,
+            }}
+            className="drinks-grid"
+          >
+            {drinks.map((drink) => (
+              <DrinkCard
+                key={drink.idDrink}
+                drink={drink}
+                onPress={() => handleDrinkPress(drink.idDrink)}
+              />
+            ))}
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  // Layout mobile nativo
   return (
     <View style={styles.container}>
       <Header
@@ -96,6 +129,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  webContainer: {
+    maxWidth: 1400,
+    width: '100%',
+    alignSelf: 'center',
   },
   listContent: {
     padding: spacing.lg,

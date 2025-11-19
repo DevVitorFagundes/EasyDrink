@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {
     Alert,
     FlatList,
+    Platform,
     StyleSheet,
     Text,
     TextInput,
@@ -108,6 +109,26 @@ export default function SearchScreen() {
 
       {isLoading ? (
         <Loading message="Buscando drinks..." />
+      ) : Platform.OS === 'web' && drinks.length > 0 ? (
+        <View style={styles.webContainer}>
+          <View 
+            style={{
+              display: 'grid' as any,
+              gridTemplateColumns: 'repeat(2, 1fr)' as any,
+              gap: 16 as any,
+              padding: 16,
+            }}
+            className="drinks-grid"
+          >
+            {drinks.map((drink) => (
+              <DrinkCard
+                key={drink.idDrink}
+                drink={drink}
+                onPress={() => handleDrinkPress(drink.idDrink)}
+              />
+            ))}
+          </View>
+        </View>
       ) : (
         <FlatList
           data={drinks}
@@ -128,6 +149,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  webContainer: {
+    maxWidth: 1400,
+    width: '100%',
+    alignSelf: 'center',
   },
   searchContainer: {
     flexDirection: 'row',

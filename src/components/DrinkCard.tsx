@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Dimensions,
+    Image,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { FavoritesService } from '../services/FavoritesService';
 import { borderRadius, colors, fontSize, fontWeight, spacing } from '../styles/theme';
@@ -66,10 +67,10 @@ export const DrinkCard: React.FC<DrinkCardProps> = ({ drink, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: cardWidth,
+    width: Platform.OS === 'web' ? '100%' : cardWidth,
     backgroundColor: colors.card,
     borderRadius: borderRadius.lg,
-    marginBottom: spacing.md,
+    marginBottom: Platform.OS === 'web' ? 0 : spacing.md,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: colors.border,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 120,
+    height: Platform.OS === 'web' ? 180 : 120,
     resizeMode: 'cover',
   },
   favoriteButton: {

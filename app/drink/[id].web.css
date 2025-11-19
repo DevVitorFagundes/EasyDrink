@@ -1,0 +1,42 @@
+/* Container principal da receita */
+.drink-detail-container {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Conteúdo da receita */
+.drink-detail-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding: 32px;
+}
+
+/* Mobile - Layout em coluna única */
+@media (max-width: 767px) {
+  .drink-detail-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px;
+  }
+}
+
+/* Tablet - 2 colunas */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .drink-detail-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 32px;
+  }
+}
+
+/* Desktop - 2 colunas com mais espaço */
+@media (min-width: 1024px) {
+  .drink-detail-content {
+    grid-template-columns: 400px 1fr;
+    gap: 48px;
+    padding: 40px 64px;
+  }
+}

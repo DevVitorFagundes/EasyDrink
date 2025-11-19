@@ -1,8 +1,9 @@
-import {Stack, useLocalSearchParams} from "expo-router";
-import React, {useEffect, useState} from "react";
+import { Stack, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -10,11 +11,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {LoadingComponent} from "../../src/components/LoadingComponent";
-import {DrinkService} from "../../src/services/DrinkService";
-import {FavoritesService} from "../../src/services/FavoritesService";
-import {colors} from "../../src/styles/theme";
-import {DrinkDetail, Ingredient} from "../../src/types";
+import { LoadingComponent } from "../../src/components/LoadingComponent";
+import { DrinkService } from "../../src/services/DrinkService";
+import { FavoritesService } from "../../src/services/FavoritesService";
+import { colors } from "../../src/styles/theme";
+import { DrinkDetail, Ingredient } from "../../src/types";
+
+// Importa CSS apenas na web
+if (Platform.OS === 'web') {
+  require('./[id].web.css');
+}
 
 export default function DrinkDetailScreen() {
   const {id} = useLocalSearchParams();
@@ -94,6 +100,66 @@ export default function DrinkDetailScreen() {
 
   const ingredients = getIngredients();
 
+  // Layout para web com melhor responsividade
+  if (Platform.OS === 'web') {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Stack.Screen
+          options={{
+            title: drink.strDrink,
+            headerBackTitle: "Voltar",
+            headerStyle: {backgroundColor: colors.background},
+            headerTintColor: colors.white,
+            headerTitleStyle: {color: colors.white},
+          }}
+        />
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.webContainer} className="drink-detail-container">
+            <View style={styles.webImageSection}>
+              <Image source={{uri: drink.strDrinkThumb}} style={styles.webImage} />
+              <TouchableOpacity
+                style={[
+                  styles.favoriteButton,
+                  isFavorite && styles.favoriteButtonActive,
+                ]}
+                onPress={toggleFavorite}
+              >
+                <Text style={styles.favoriteButtonText}>
+                  {isFavorite ? "♥" : "♡"}
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.webContent} className="drink-detail-content">
+              <View style={styles.webInfoSection}>
+                <Text style={styles.webTitle}>{drink.strDrink}</Text>
+                <Text style={styles.category}>
+                  {drink.strCategory} • {drink.strAlcoholic}
+                </Text>
+                <Text style={styles.glass}>Servir em: {drink.strGlass}</Text>
+
+                <Text style={styles.sectionTitle}>Ingredientes</Text>
+                <View style={styles.ingredientsGrid}>
+                  {ingredients.map((ingredient, index) => (
+                    <Text key={index} style={styles.ingredient}>
+                      • {ingredient.measure} {ingredient.name}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+
+              <View style={styles.webInstructionsSection}>
+                <Text style={styles.sectionTitle}>Modo de Preparo</Text>
+                <Text style={styles.instructions}>{drink.strInstructions}</Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  // Layout mobile nativo
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen
@@ -180,6 +246,12 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
+    position: Platform.OS === 'web' ? 'absolute' : 'relative',
+    ...(Platform.OS === 'web' && {
+      top: 20,
+      right: 20,
+      zIndex: 10,
+    }),
   },
   favoriteButtonActive: {
     backgroundColor: colors.error,
@@ -220,5 +292,41 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginTop: 50,
+  },
+  // Estilos específicos para web
+  webContainer: {
+    maxWidth: 1200,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  webImageSection: {
+    position: 'relative',
+    width: '100%',
+  },
+  webImage: {
+    width: "100%",
+    height: 400,
+    resizeMode: "cover",
+  },
+  webContent: {
+    padding: 32,
+  },
+  webInfoSection: {
+    marginBottom: 32,
+  },
+  webTitle: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: colors.white,
+    marginBottom: 10,
+  },
+  ingredientsGrid: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  webInstructionsSection: {
+    backgroundColor: colors.card,
+    padding: 24,
+    borderRadius: 12,
   },
 });

@@ -1,0 +1,56 @@
+/* Grid responsivo para drinks */
+.drinks-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 16px !important;
+  padding: 16px !important;
+  width: 100% !important;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Mobile pequeno - 2 colunas */
+@media (max-width: 480px) {
+  .drinks-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    padding: 12px !important;
+  }
+}
+
+/* Mobile - 2 colunas */
+@media (min-width: 481px) and (max-width: 767px) {
+  .drinks-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    padding: 16px !important;
+  }
+}
+
+/* Tablet - 3 colunas */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .drinks-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+    padding: 24px !important;
+  }
+}
+
+/* Desktop - 4 colunas */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .drinks-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+    padding: 24px 32px !important;
+  }
+}
+
+/* Desktop grande - 4 colunas com mais espaço */
+@media (min-width: 1440px) {
+  .drinks-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 24px !important;
+    padding: 32px 64px !important;
+  }
+}
