@@ -1,29 +1,29 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import {Stack, useLocalSearchParams} from "expo-router";
+import React, {useEffect, useState} from "react";
 import {
-    Alert,
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
-import { LoadingComponent } from '../../src/components/LoadingComponent';
-import { DrinkService } from '../../src/services/DrinkService';
-import { FavoritesService } from '../../src/services/FavoritesService';
-import { colors } from '../../src/styles/theme';
-import { DrinkDetail, Ingredient } from '../../src/types';
+  Alert,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import {LoadingComponent} from "../../src/components/LoadingComponent";
+import {DrinkService} from "../../src/services/DrinkService";
+import {FavoritesService} from "../../src/services/FavoritesService";
+import {colors} from "../../src/styles/theme";
+import {DrinkDetail, Ingredient} from "../../src/types";
 
 export default function DrinkDetailScreen() {
-  const { id } = useLocalSearchParams();
+  const {id} = useLocalSearchParams();
   const [drink, setDrink] = useState<DrinkDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (id && typeof id === 'string') {
+    if (id && typeof id === "string") {
       loadDrink(id);
       checkIfFavorite(id);
     }
@@ -35,7 +35,7 @@ export default function DrinkDetailScreen() {
       const drinkData = await DrinkService.getDrinkById(drinkId);
       setDrink(drinkData);
     } catch {
-      Alert.alert('Erro', 'Falha ao carregar detalhes do drink');
+      Alert.alert("Erro", "Falha ao carregar detalhes do drink");
     } finally {
       setLoading(false);
     }
@@ -58,22 +58,22 @@ export default function DrinkDetailScreen() {
         setIsFavorite(true);
       }
     } catch {
-      Alert.alert('Erro', 'Falha ao atualizar favoritos');
+      Alert.alert("Erro", "Falha ao atualizar favoritos");
     }
   };
 
   const getIngredients = (): Ingredient[] => {
     if (!drink) return [];
-    
+
     const ingredients: Ingredient[] = [];
     for (let i = 1; i <= 15; i++) {
       const ingredient = drink[`strIngredient${i}`];
       const measure = drink[`strMeasure${i}`];
-      
+
       if (ingredient && ingredient.trim()) {
         ingredients.push({
           name: ingredient.trim(),
-          measure: measure?.trim() || ''
+          measure: measure?.trim() || "",
         });
       }
     }
@@ -96,31 +96,37 @@ export default function DrinkDetailScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Stack.Screen 
-        options={{ 
+      <Stack.Screen
+        options={{
           title: drink.strDrink,
-          headerStyle: { backgroundColor: '#1a1a2e' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { color: '#fff' }
-        }} 
+          headerBackTitle: "Voltar",
+          headerStyle: {backgroundColor: colors.background},
+          headerTintColor: colors.white,
+          headerTitleStyle: {color: colors.white},
+        }}
       />
       <ScrollView style={styles.scrollView}>
-        <Image source={{ uri: drink.strDrinkThumb }} style={styles.image} />
-        
+        <Image source={{uri: drink.strDrinkThumb}} style={styles.image} />
+
         <View style={styles.content}>
           <View style={styles.header}>
             <Text style={styles.title}>{drink.strDrink}</Text>
             <TouchableOpacity
-              style={[styles.favoriteButton, isFavorite && styles.favoriteButtonActive]}
+              style={[
+                styles.favoriteButton,
+                isFavorite && styles.favoriteButtonActive,
+              ]}
               onPress={toggleFavorite}
             >
               <Text style={styles.favoriteButtonText}>
-                {isFavorite ? '♥' : '♡'}
+                {isFavorite ? "♥" : "♡"}
               </Text>
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.category}>{drink.strCategory} • {drink.strAlcoholic}</Text>
+          <Text style={styles.category}>
+            {drink.strCategory} • {drink.strAlcoholic}
+          </Text>
           <Text style={styles.glass}>Servir em: {drink.strGlass}</Text>
 
           <Text style={styles.sectionTitle}>Ingredientes</Text>
@@ -147,22 +153,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 300,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   content: {
     padding: 20,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.white,
     flex: 1,
     marginRight: 10,
@@ -172,8 +178,8 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   favoriteButtonActive: {
     backgroundColor: colors.error,
@@ -194,7 +200,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: colors.white,
     marginTop: 20,
     marginBottom: 10,
@@ -212,7 +218,7 @@ const styles = StyleSheet.create({
   errorText: {
     color: colors.white,
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 50,
   },
 });

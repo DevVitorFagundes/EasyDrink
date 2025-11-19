@@ -61,7 +61,6 @@ export default function ProfileScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 40}}
       >
-        {/* CARD DO USUÁRIO */}
         <View style={styles.userCard}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>👤</Text>
@@ -71,7 +70,6 @@ export default function ProfileScreen() {
           <Text style={styles.userEmail}>{user?.email}</Text>
         </View>
 
-        {/* ESTATÍSTICAS */}
         <View style={styles.statsRow}>
           <View style={styles.statCard}>
             <Text style={styles.statIcon}>🍸</Text>
@@ -86,7 +84,6 @@ export default function ProfileScreen() {
           </View>
         </View>
 
-        {/* SOBRE */}
         <View style={styles.aboutCard}>
           <Text style={styles.aboutTitle}>Sobre o EasyDrink</Text>
           <Text style={styles.aboutText}>

@@ -1,7 +1,8 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import {Stack} from "expo-router";
+import {StatusBar} from "expo-status-bar";
 import React from "react";
-import { AuthProvider } from "../src/contexts/AuthContext";
+import {AuthProvider} from "../src/contexts/AuthContext";
+import {colors} from "../src/styles/theme";
 
 export default function RootLayout() {
   return (
@@ -16,8 +17,9 @@ export default function RootLayout() {
             options={{
               headerShown: true,
               title: "Detalhes do Drink",
-              headerStyle: {backgroundColor: "#8B5CF6"},
-              headerTintColor: "#fff",
+              headerBackTitle: "Voltar",
+              headerStyle: {backgroundColor: colors.background},
+              headerTintColor: colors.white,
             }}
           />
         </Stack>
