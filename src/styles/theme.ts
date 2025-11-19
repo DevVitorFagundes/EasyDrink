@@ -1,16 +1,16 @@
 export const colors = {
-  primary: '#3f3f3f57', // Purple
+  primary: '#8B5CF6', // Purple
   primaryDark: '#7C3AED',
   primaryLight: '#A78BFA',
   secondary: '#10B981', // Green
   background: '#0F172A', // Dark slate
   card: '#1E293B',
   border: '#334155',
-  text: '#fdfdfdff',
-  textSecondary: '#ffffffff',
-  white: '#25233db6',
+  text: '#FFFFFF', // Branco para textos principais
+  textSecondary: '#E2E8F0', // Branco suave para textos secundários
+  white: '#FFFFFF',
   error: '#EF4444',
-  warning: '#ffffffff',
+  warning: '#F59E0B',
   success: '#10B981',
 };
 

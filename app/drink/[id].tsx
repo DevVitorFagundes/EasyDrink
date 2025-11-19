@@ -13,6 +13,7 @@ import {
 import { LoadingComponent } from '../../src/components/LoadingComponent';
 import { DrinkService } from '../../src/services/DrinkService';
 import { FavoritesService } from '../../src/services/FavoritesService';
+import { colors } from '../../src/styles/theme';
 import { DrinkDetail, Ingredient } from '../../src/types';
 
 export default function DrinkDetailScreen() {
@@ -140,7 +141,7 @@ export default function DrinkDetailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: colors.background,
   },
   scrollView: {
     flex: 1,
@@ -162,12 +163,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.white,
     flex: 1,
     marginRight: 10,
   },
   favoriteButton: {
-    backgroundColor: '#2d2d5f',
+    backgroundColor: colors.card,
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -175,41 +176,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   favoriteButtonActive: {
-    backgroundColor: '#ff6b6b',
+    backgroundColor: colors.error,
   },
   favoriteButtonText: {
     fontSize: 24,
-    color: '#fff',
+    color: colors.white,
   },
   category: {
     fontSize: 16,
-    color: '#999',
+    color: colors.textSecondary,
     marginBottom: 5,
   },
   glass: {
     fontSize: 16,
-    color: '#999',
+    color: colors.textSecondary,
     marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.white,
     marginTop: 20,
     marginBottom: 10,
   },
   ingredient: {
     fontSize: 16,
-    color: '#fff',
+    color: colors.white,
     marginBottom: 5,
   },
   instructions: {
     fontSize: 16,
-    color: '#fff',
+    color: colors.white,
     lineHeight: 24,
   },
   errorText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     textAlign: 'center',
     marginTop: 50,

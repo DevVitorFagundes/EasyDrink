@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -7,21 +7,21 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 
-import { Header } from '../../src/components/Header';
-import { useAuth } from '../../src/contexts/AuthContext';
-import { FavoritesService } from '../../src/services/FavoritesService';
+import { Header } from "../../src/components/Header";
+import { useAuth } from "../../src/contexts/AuthContext";
+import { FavoritesService } from "../../src/services/FavoritesService";
 import {
   borderRadius,
   colors,
   fontSize,
   fontWeight,
   spacing,
-} from '../../src/styles/theme';
+} from "../../src/styles/theme";
 
 export default function ProfileScreen() {
-  const { user, logout } = useAuth();
+  const {user, logout} = useAuth();
   const [favoritesCount, setFavoritesCount] = useState(0);
   const router = useRouter();
 
@@ -34,26 +34,22 @@ export default function ProfileScreen() {
       const favorites = await FavoritesService.getFavorites();
       setFavoritesCount(favorites.length);
     } catch (error) {
-      console.error('Error loading favorites count:', error);
+      console.error("Error loading favorites count:", error);
     }
   };
 
   const handleLogout = () => {
-    Alert.alert(
-      'Sair da Conta',
-      'Tem certeza que deseja sair?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Sair',
-          style: 'destructive',
-          onPress: () => {
-            logout();
-            router.replace('/login');
-          },
+    Alert.alert("Sair da Conta", "Tem certeza que deseja sair?", [
+      {text: "Cancelar", style: "cancel"},
+      {
+        text: "Sair",
+        style: "destructive",
+        onPress: () => {
+          logout();
+          router.replace("/login");
         },
-      ]
-    );
+      },
+    ]);
   };
 
   return (
@@ -63,7 +59,7 @@ export default function ProfileScreen() {
       <ScrollView
         style={styles.content}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        contentContainerStyle={{paddingBottom: 40}}
       >
         {/* CARD DO USUÁRIO */}
         <View style={styles.userCard}>
@@ -119,15 +115,14 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
   },
 
-  /* CARD DO USUÁRIO */
   userCard: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.card,
     padding: spacing.xl,
     borderRadius: borderRadius.xl,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: spacing.xl,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.08,
     shadowRadius: 6,
     elevation: 2,
@@ -138,8 +133,8 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 45,
     backgroundColor: colors.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: spacing.md,
   },
 
@@ -159,21 +154,20 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
 
-  /* ESTATÍSTICAS */
   statsRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.md,
     marginBottom: spacing.xl,
   },
 
   statCard: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.card,
     paddingVertical: spacing.lg,
     borderRadius: borderRadius.lg,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.06,
     shadowRadius: 4,
     elevation: 1,
@@ -196,14 +190,13 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
 
-  /* SOBRE */
   aboutCard: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.card,
     padding: spacing.lg,
     borderRadius: borderRadius.lg,
     marginBottom: spacing.lg,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowColor: "#000",
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.06,
     shadowRadius: 4,
     elevation: 1,
@@ -224,14 +217,14 @@ const styles = StyleSheet.create({
 
   /* BOTÃO DE SAIR */
   logoutButton: {
-    backgroundColor: '#EF4444',
+    backgroundColor: "#EF4444",
     padding: spacing.md,
     borderRadius: borderRadius.md,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   logoutButtonText: {
-    color: colors.text,
+    color: colors.white,
     fontSize: fontSize.md,
     fontWeight: fontWeight.bold,
   },
