@@ -1,60 +1,62 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { AuthService } from '../services/AuthService';
 import { AuthContextType, User } from '../types';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const USER_KEY = 'user';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    loadUser();
+    // Observa mudanças no estado de autenticação do Firebase
+    const unsubscribe = AuthService.onAuthStateChanged((user) => {
+      setUser(user);
+      setIsLoading(false);
+    });
+
+    // Cleanup: remove o listener quando o componente for desmontado
+    return () => unsubscribe();
   }, []);
 
-  const loadUser = async () => {
+  const login = async (email: string, password: string) => {
     try {
-      const storedUser = await AsyncStorage.getItem(USER_KEY);
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) {
-      console.error('Error loading user:', error);
-    } finally {
-      setIsLoading(false);
+      const userData = await AuthService.login(email, password);
+      setUser(userData);
+    } catch (error: any) {
+      throw error;
     }
   };
 
-  const login = async (email: string, password: string, name?: string) => {
+  const register = async (email: string, password: string, name: string) => {
     try {
-      // Simulação de login - em um app real, seria uma chamada para API
-      const userData: User = {
-        id: Date.now().toString(),
-        email,
-        name: name || email.split('@')[0], // Se não tiver nome, usa parte do email
-      };
-
-      await AsyncStorage.setItem(USER_KEY, JSON.stringify(userData));
+      const userData = await AuthService.register(email, password, name);
       setUser(userData);
-    } catch (error) {
-      console.error('Error during login:', error);
-      throw new Error('Erro ao fazer login');
+    } catch (error: any) {
+      throw error;
     }
   };
 
   const logout = async () => {
     try {
-      await AsyncStorage.removeItem(USER_KEY);
+      await AuthService.logout();
       setUser(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error during logout:', error);
+      throw error;
+    }
+  };
+
+  const resetPassword = async (email: string) => {
+    try {
+      await AuthService.resetPassword(email);
+    } catch (error: any) {
+      throw error;
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, resetPassword, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
