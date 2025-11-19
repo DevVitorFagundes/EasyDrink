@@ -25,13 +25,14 @@ export default function TabLayout() {
           backgroundColor: '#1F2431',
           borderTopWidth: 1,
           borderTopColor: '#1F2431',
-          height: 60,
-          paddingBottom: 8,
+          height: 70,
+          paddingBottom: 16,
           paddingTop: 8,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
+          marginBottom: 4,
         },
       }}>
       <Tabs.Screen
